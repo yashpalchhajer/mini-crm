@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CompanyStoreRequest;
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
 {
@@ -15,6 +17,8 @@ class CompanyController extends Controller
     public function index()
     {
         //
+        $companyData = Company::all();
+        return view('company.list', compact('companyData'));
     }
 
     /**
@@ -25,6 +29,7 @@ class CompanyController extends Controller
     public function create()
     {
         //
+        return view('company.create');
     }
 
     /**
@@ -33,9 +38,35 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CompanyStoreRequest $request)
     {
-        //
+        $logoFileName = "";
+        try{
+            $companyData = [
+                Company::NAME =>    trim($request->get("companyName")),
+                Company::EMAIL =>   trim($request->get("companyEmail")),
+                Company::LOGO =>    "",
+                Company::WEBSITE => trim($request->get("companyWebsite"))
+            ];
+
+            if($request->hasFile("companyLogo")){
+                $extenstion = $request->companyLogo->getClientOriginalExtension();
+                $logoFileName = time() . ".$extenstion";
+                $request->file('companyLogo')->storeAs(
+                    'public', $logoFileName
+                );
+
+                $companyData[Company::LOGO] = $logoFileName;
+
+            }
+
+            Company::create($companyData);
+
+            return redirect(route('company'))->with('success', 'Company added successfully');
+        }catch(\Exception $e){
+            Storage::disk('public')->delete($logoFileName);
+            return redirect(route('company'))->withErrors(["error"  =>  "Some error occured on server, please try again" ]);
+        }
     }
 
     /**

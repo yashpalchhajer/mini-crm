@@ -15,5 +15,11 @@ class Company extends Model
     const LOGO = 'logo';
     const WEBSITE = 'website';
 
+    protected $fillable = [
+        self::NAME,
+        self::EMAIL,
+        self::LOGO,
+        self::WEBSITE
+    ];
 
 }
