@@ -96,7 +96,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                           <li class="nav-item">
-                            <a href="{{ route('company') }}" class="nav-link @if(\Request::route()->getName() == "company") active @endif" {{ \Request::route()->getName() }}>
+                            <a href="{{ route('company') }}" class="nav-link @if(\Request::is('company/*') === true) active @endif">
                               <i class="far fa-circle nav-icon"></i>
                               <p>Componay</p>
                             </a>
