@@ -1,6 +1,6 @@
 <div class="card-body">
     <div class="form-group">
-        <label for="empLName">Choose Company</label>
+        <label for="empLName">{{ __('employee.select_company')}}</label>
         <select name="eCompany" id="eCompany" class="form-control" required>
             <option value="">--select--</option>
             @foreach ($companies as $company)
@@ -13,7 +13,7 @@
     </div>
 
     <div class="form-group">
-        <label for="empFName">First Name of Employee</label>
+        <label for="empFName"> {{ __('employee.first_name') }} </label>
         <input type="text" class="form-control @error('empFName') is-invalid @enderror" id="empFName" placeholder="Enter Employee First name"
             name="empFName" required value="{{ old("empFName", $employee->{App\Models\Employee::FIRST_NAME}) }}">
         @error('empFName')
@@ -21,7 +21,7 @@
         @enderror
     </div>
     <div class="form-group">
-        <label for="empLName">Last Name of Employee</label>
+        <label for="empLName">{{ __('employee.last_name') }}</label>
         <input type="text" class="form-control @error('empLName') is-invalid @enderror" id="empLName" placeholder="Enter Employee Last name"
             name="empLName" required value="{{ old("empLName", $employee->{App\Models\Employee::LAST_NAME}) }}">
         @error('empLName')
@@ -29,7 +29,7 @@
         @enderror
     </div>
     <div class="form-group">
-        <label for="empEmail">Employee Email</label>
+        <label for="empEmail">{{ __('employee.emp_email') }}</label>
         <input type="email" class="form-control @error('empEmail') is-invalid @enderror" id="empEmail" placeholder="Enter Employee Email"
             name="empEmail" value="{{ old("empEmail", $employee->{App\Models\Employee::EMAIL}) }}">
         @error('empEmail')
@@ -38,7 +38,7 @@
     </div>
 
     <div class="form-group">
-        <label for="empPhone">Employee Phone</label>
+        <label for="empPhone">{{ __('employee.emp_phone') }}</label>
         <input type="email" class="form-control @error('empPhone') is-invalid @enderror" id="empPhone" placeholder="Enter Employee Phone"
             name="empPhone" value="{{ old("empPhone", $employee->{App\Models\Employee::PHONE}) }}">
         @error('empPhone')
@@ -58,16 +58,16 @@
         let lName = document.getElementById("empLName");
         let phoneNo = document.getElementById("empPhone");
         if(company.value == ""){
-            alert("Please select company");
+            alert("{{ __('employee.err_company') }}");
             return false;
         }
         if(fName.value.trim() == ""){
-            alert("Please enter first name");
+            alert(" {{ __('employee.err_first_name') }} ");
             return false;
         }
 
         if(lName.value.trim() == ""){
-            alert("Please enter last name");
+            alert("{{__('employee.err_last_name')}}");
             return false;
         }
 

@@ -8,11 +8,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Company</h1>
+                    <h1 class="m-0"> {{ __('company.company') }} </h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                      <li class="breadcrumb-item"><a href="{{ route('company.create') }}" class="btn btn-primary">Add</a></li>
+                      <li class="breadcrumb-item"><a href="{{ route('company.create') }}" class="btn btn-primary"> {{ __('company.add_company') }} </a></li>
                     </ol>
                   </div>
             </div><!-- /.row -->
@@ -117,10 +117,6 @@
 
 @section('scripts')
 <script>
-
-    $(document).ready(function () {
-        console.log('sdsds');
-    });
 
 
     $(function () {

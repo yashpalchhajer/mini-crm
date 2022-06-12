@@ -1,6 +1,6 @@
 <div class="card-body">
     <div class="form-group">
-        <label for="nameInput">Name of Company</label>
+        <label for="nameInput"> {{ __('company.name') }} </label>
         <input type="text" class="form-control @error('companyName') is-invalid @enderror" id="nameInput" placeholder="Enter company name"
             name="companyName" required value="{{ old("companyName", $company->{App\Models\Company::NAME}) }}">
         @error('companyName')
@@ -8,7 +8,7 @@
         @enderror
     </div>
     <div class="form-group">
-        <label for="companyEmail">Email address</label>
+        <label for="companyEmail"> {{__('company.email')}} </label>
         <input type="email" class="form-control @error('companyEmail') is-invalid @enderror" id="companyEmail" placeholder="Enter company email"
             name="companyEmail" value="{{ old("companyEmail", $company->{App\Models\Company::EMAIL}) }}">
         @error('companyEmail')
@@ -16,7 +16,7 @@
         @enderror
     </div>
     <div class="form-group">
-        <label for="companyWebsite">Company Website</label>
+        <label for="companyWebsite"> {{ __('company.website') }} </label>
         <input type="text" class="form-control @error('companyWebsite') is-invalid @enderror" id="companyWebsite"
             placeholder="Enter company website" name="companyWebsite" value=" {{ old("companyWebsite", $company->{App\Models\Company::NAME}) }} " >
         @error('companyWebsite')
