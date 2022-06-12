@@ -38,7 +38,7 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>53</h3>
+                            <h3> {{ $totalEmployees }}</h3>
 
                             <p>Employees Registered</p>
                         </div>

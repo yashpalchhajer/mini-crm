@@ -3,30 +3,27 @@
 @section('content')
 
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Company</h1>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+                    <h1 class="m-0">Employee</h1>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- /.content-header -->
 
-    <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Update Company</h3>
+                    <h3 class="card-title">Add New Employee</h3>
                 </div>
 
-                <form action="{{ route('company.update', $company->{App\Models\Company::ID}) }}" method="POST" enctype="multipart/form-data" id="companyForm">
+                <form action="{{ route('employee.store') }}" method="POST" enctype="multipart/form-data" id="employeeForm">
                     @csrf
-                    @method('patch')
-                    @include('company.form')
+
+                    @include('employee.form')
                     <div class="card-footer">
                         <button type="button" class="btn btn-primary" onclick="verifyForm()">Submit</button>
                     </div>
@@ -34,7 +31,8 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
+
+
 </div>
 
 @endsection

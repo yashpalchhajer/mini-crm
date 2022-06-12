@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Company</h1>
+                    <h1 class="m-0">Employee</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -20,13 +20,13 @@
         <div class="container-fluid">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Update Company</h3>
+                    <h3 class="card-title">Update Employee</h3>
                 </div>
 
-                <form action="{{ route('company.update', $company->{App\Models\Company::ID}) }}" method="POST" enctype="multipart/form-data" id="companyForm">
+                <form action="{{ route('employee.update', $employee->{App\Models\Employee::ID}) }}" method="POST" enctype="multipart/form-data" id="employeeForm">
                     @csrf
                     @method('patch')
-                    @include('company.form')
+                    @include('employee.form')
                     <div class="card-footer">
                         <button type="button" class="btn btn-primary" onclick="verifyForm()">Submit</button>
                     </div>

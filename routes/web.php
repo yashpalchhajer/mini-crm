@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,4 +43,20 @@ Route::group(['middleware'  =>  ['auth']], function () {
             ]
         ]
     );
+
+    Route::resource(
+        'employee',
+        EmployeeController::class,
+        [
+            'names' => [
+                'index' => 'employee',
+                'create' => 'employee.create',
+                'store' => 'employee.store',
+                'edit'  =>  'employee.edit',
+                'update'    =>  'employee.update',
+                'destroy'   =>  'employee.destroy'
+            ]
+        ]
+    );
+
 });
