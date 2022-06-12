@@ -78,7 +78,15 @@
                                                 <td> {{ $company->{App\Models\Company::NAME} }}  </td>
                                                 <td> {{ $company->{App\Models\Company::EMAIL} }}  </td>
                                                 <td> {{ $company->{App\Models\Company::WEBSITE} }}  </td>
-                                                <td>edit | delete</td>
+                                                <td>
+                                                    <a href="{{ route('company.edit', $company->{App\Models\Company::ID}) }}" class="btn btn-info">Edit</a>
+                                                    <form action="{{ route('company.destroy', $company->{App\Models\Company::ID}) }}" method="POST">
+                                                        @method('delete')
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-danger">Deletee</button>
+                                                    </form>
+
+                                                </td>
                                             </tr>
                                         @endforeach
                                     @endif

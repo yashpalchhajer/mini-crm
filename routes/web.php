@@ -27,11 +27,19 @@ Route::get('admin', function () {
     return view('admin');
 });
 
-Route::resource('company', CompanyController::class,[
-        'names' => [
-            'index' => 'company',
-            'create' => 'company.create',
-            'store' => 'company.store',
+Route::group(['middleware'  =>  ['auth']], function () {
+    Route::resource(
+        'company',
+        CompanyController::class,
+        [
+            'names' => [
+                'index' => 'company',
+                'create' => 'company.create',
+                'store' => 'company.store',
+                'edit'  =>  'company.edit',
+                'update'    =>  'company.update',
+                'destroy'   =>  'company.destroy'
+            ]
         ]
-    ]
-);
+    );
+});

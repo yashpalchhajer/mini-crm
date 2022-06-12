@@ -29,7 +29,8 @@ class CompanyController extends Controller
     public function create()
     {
         //
-        return view('company.create');
+        $company = new Company();
+        return view('company.create', compact('company'));
     }
 
     /**
@@ -65,7 +66,7 @@ class CompanyController extends Controller
             return redirect(route('company'))->with('success', 'Company added successfully');
         }catch(\Exception $e){
             Storage::disk('public')->delete($logoFileName);
-            return redirect(route('company'))->withErrors(["error"  =>  "Some error occured on server, please try again" ]);
+            return redirect(route('company'))->withErrors(["error"  =>  "Some error occurred on server, please try again" ]);
         }
     }
 
@@ -89,6 +90,8 @@ class CompanyController extends Controller
     public function edit(Company $company)
     {
         //
+
+        return view('company.edit', compact('company'));
     }
 
     /**
@@ -98,9 +101,31 @@ class CompanyController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company)
+    public function update(CompanyStoreRequest $request, Company $company)
     {
-        //
+
+        $logoFileName = "";
+        try{
+
+            if($request->hasFile("companyLogo")){
+                $extenstion = $request->companyLogo->getClientOriginalExtension();
+                $logoFileName = time() . ".$extenstion";
+                $request->file('companyLogo')->storeAs(
+                    'public', $logoFileName
+                );
+                Storage::disk('public')->delete($company->{Company::LOGO});
+                $company->{Company::LOGO} = $logoFileName;
+            }
+
+            $company->{Company::NAME} = trim($request->get("companyName"));
+            $company->{Company::EMAIL} = trim($request->get("companyEmail"));
+            $company->{Company::WEBSITE} = trim($request->get("companyWebsite"));
+            $company->save();
+            return redirect(route('company'))->with('success', 'Company updated successfully');
+        }catch(\Exception $e){
+            return redirect(route('company'))->withErrors(["error"  =>  "Some error occurred on server, please try again" ]);
+        }
+
     }
 
     /**
@@ -111,6 +136,7 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        //
+        $company->delete();
+        return redirect(route('company'))->with('success', 'Company Delete');
     }
 }

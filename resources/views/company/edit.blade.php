@@ -1,48 +1,51 @@
-<div class="card-body">
-    <div class="form-group">
-        <label for="nameInput">Name of Company</label>
-        <input type="email" class="form-control @error('companyName') is-invalid @enderror" id="nameInput" placeholder="Enter company name"
-            name="companyName" required value="{{ old("companyName", $company->{App\Models\Company::NAME}) }}">
-        @error('companyName')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
+@extends('layouts.app')
+
+@section('content')
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Company</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
     </div>
-    <div class="form-group">
-        <label for="companyEmail">Email address</label>
-        <input type="email" class="form-control @error('companyEmail') is-invalid @enderror" id="companyEmail" placeholder="Enter company email"
-            name="companyEmail" value="{{ old("companyEmail", $company->{App\Models\Company::EMAIL}) }}">
-        @error('companyEmail')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-    </div>
-    <div class="form-group">
-        <label for="companyWebsite">Company Website</label>
-        <input type="text" class="form-control @error('companyWebsite') is-invalid @enderror" id="companyWebsite"
-            placeholder="Enter company website" name="companyWebsite" value=" {{ old("companyWebsite", $company->{App\Models\Company::NAME}) }} " >
-        @error('companyEmail')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-    </div>
-    <div class="form-group">
-        <label for="logoInputFile">Logo</label>
-        <div class="input-group">
-            <div class="custom-file">
-                <input type="file" class="custom-file-input @error('companyLogo') is-invalid @enderror" id="logoInputFile" name="companyLogo">
-                <label class="custom-file-label" for="logoInputFile">Choose logo</label>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Update Company</h3>
+                </div>
+
+                <form action="{{ route('company.update', $company->{App\Models\Company::ID}) }}" method="POST" enctype="multipart/form-data" id="companyForm">
+                    @csrf
+                    @method('patch')
+                    @include('company.form')
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-primary" onclick="verifyForm()">Submit</button>
+                    </div>
+                </form>
             </div>
-            @error('companyLogo')
-                <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-        </div>
-    </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
 </div>
+
+@endsection
 
 @section('scripts')
 <script>
 
     function verifyForm() {
         let nameInput = document.getElementById("nameInput");
-
+        let companyEmail = document.getElementById("companyEmail");
+        let companyWebsite = document.getElementById("companyWebsite");
         let logoFile = document.getElementById("logoInputFile");
 
         if (nameInput.value.trim() == "") {
@@ -50,11 +53,22 @@
             return false;
         }
 
-        if (logoFile.files.length > 1) {
-            checkDimension();
-        }else{
-            handleSubmit();
+        if (companyEmail.value.trim() == "") {
+            alert("Please enter company Email");
+            return false;
         }
+
+        if (companyWebsite.value.trim() == "") {
+            alert("Please enter company website");
+            return false;
+        }
+
+        if (logoFile.files.length < 1) {
+            alert("Please select logo file");
+            return false;
+        }
+
+        checkDimension();
 
     }
 
