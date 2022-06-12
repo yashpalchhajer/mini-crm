@@ -19,7 +19,7 @@
         <label for="companyWebsite">Company Website</label>
         <input type="text" class="form-control @error('companyWebsite') is-invalid @enderror" id="companyWebsite"
             placeholder="Enter company website" name="companyWebsite" value=" {{ old("companyWebsite", $company->{App\Models\Company::NAME}) }} " >
-        @error('companyEmail')
+        @error('companyWebsite')
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
     </div>
