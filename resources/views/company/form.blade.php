@@ -1,7 +1,7 @@
 <div class="card-body">
     <div class="form-group">
         <label for="nameInput">Name of Company</label>
-        <input type="email" class="form-control @error('companyName') is-invalid @enderror" id="nameInput" placeholder="Enter company name"
+        <input type="text" class="form-control @error('companyName') is-invalid @enderror" id="nameInput" placeholder="Enter company name"
             name="companyName" required value="{{ old("companyName", $company->{App\Models\Company::NAME}) }}">
         @error('companyName')
             <div class="alert alert-danger">{{ $message }}</div>
