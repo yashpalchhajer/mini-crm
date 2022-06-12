@@ -6,7 +6,8 @@ use App\Http\Requests\CompanyStoreRequest;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CompanyRegisteredMail;
 class CompanyController extends Controller
 {
     /**
@@ -62,6 +63,14 @@ class CompanyController extends Controller
             }
 
             Company::create($companyData);
+
+            try{
+                Mail::to($companyData[Company::EMAIL])->send(new CompanyRegisteredMail);
+            }catch(\Exception $e){
+
+            }
+
+
 
             return redirect(route('company'))->with('success', 'Company added successfully');
         }catch(\Exception $e){
